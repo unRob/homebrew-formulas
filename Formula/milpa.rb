@@ -1,31 +1,32 @@
 class Milpa < Formula
   desc "Tool to care for one's own garden of scripts"
   homepage "https://milpa.dev"
-  version "0.0.0-alpha.39"
+  version "0.0.0-beta.1"
   license "Apache-2.0"
   stable do
     os = "darwin"
     arch = "amd64"
     on_macos do
-      sha256 "364da8833ae8a58311116197222739dd982d4258d2a743e3e51f72af7bfd6cae"
+      sha256 "27358406976615b9f853291cf20b651b021491fcd050641e387bd440f195f3f6" # darwin_amd64
       on_arm do
         arch = "arm64"
-        sha256 "d9d96567f38909e87695b22ce3ba45470f551aea3f83a77babf080bc00064d91"
+        sha256 "d287f4841b702228d707c58eabb7466608ffbe32938e144830e3a2f1e23bc7f1" # darwin_arm64
       end
     end
     on_linux do
-      sha256 "ef6591bbc14ca2c1887468d630d2275c149de7e20d10a68f534bb4dc02d5707b"
+      sha256 "8a3303f3a91c8c331450d5e637fd64e2fc46416addd894e8a1ed6e2391e6cb6c" # linux_amd64
       os = "linux"
       on_arm do
         arch = "arm64"
-        sha256 "c6fa847fe0f9ba4597d9d84425a4af15efa246ed48bb5b97592a825f1c528a58"
+        sha256 "1904c1a228fbbfb9174d5138bdcd02f465361ca30d14660816f19e5a8b1ee728" # linux_arm64
       end
     end
     url "https://github.com/unRob/milpa/releases/download/#{version}/milpa-#{os}-#{arch}.tgz"
+    # https://github.com/unRob/milpa/releases/download/VERSION/milpa-OS-ARCH.tgz.shasum # shasum-url
   end
 
   livecheck do
-    url "https://milpa.dev/.well-known/milpa/latest-version"
+    url "https://milpa.dev/.well-known/milpa/latest-version" # version-check-url
     regex(/.+/i)
     strategy :page_match, &:to_s
   end

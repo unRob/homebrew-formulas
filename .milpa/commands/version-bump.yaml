@@ -1,0 +1,9 @@
+summary: Bumps the verison and hashes for a formula
+description: |
+  looks for latest version and shasums for all brew platforms
+arguments:
+  - name: formula
+    description: The formula to update
+    required: true
+    values:
+      files: [".rb"]
