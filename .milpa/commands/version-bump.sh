@@ -23,13 +23,7 @@ while read -r os arch; do
     continue
   fi
   awk -v sum="\"$sum\"" -v pattern="\".+\"" '/ # '"${os}_${arch}"'$/ {gsub(pattern, sum, $0)}1' "$MILPA_ARG_FORMULA.updated" > "$MILPA_ARG_FORMULA.updated-bak" &&  mv "$MILPA_ARG_FORMULA.updated-bak" "$MILPA_ARG_FORMULA.updated"
-done < <(cat <<PAIRS
-darwin amd64
-darwin arm64
-linux amd64
-linux arm64
-PAIRS
-)
+done < <(awk '/ # (darwin|linux)_(arm64|amd64|mips|mips64)$/ {gsub("_", " ", $NF);print $NF}' "$MILPA_ARG_FORMULA")
 
 mv "$MILPA_ARG_FORMULA.updated" "$MILPA_ARG_FORMULA" || @milpa.fail "could not save updated formula"
 @milpa.log complete "Updated to $latest"
