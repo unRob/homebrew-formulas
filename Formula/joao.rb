@@ -7,22 +7,22 @@ class Joao < Formula
     os = "darwin"
     arch = "amd64"
     on_macos do
-      sha256 "c817dd2229ddf5513c5b2d4f14e7a12af381ca98a30cefb555c31709a0179d6f" # darwin_amd64
+      sha256 "915bc66dc592418b314abe77e66ee4ab2c1915875723e22ca38f3a42e1f5c131" # darwin_amd64
       on_arm do
         arch = "arm64"
-        sha256 "66ab6dd45e4499a0c8ba8fee5f0ac4c3aaddea67a16d2380688e3133ae4b669b" # darwin_arm64
+        sha256 "2ff17bc3c91d122fbdaa6b33a9f5d702bc0e7491b2c85988971de50fb8f7887b" # darwin_arm64
       end
     end
     on_linux do
-      sha256 "2bb9a13b28edf534b428771136a9ae5d895d08a1d3c157936e3faa5f08e82f17" # linux_amd64
+      sha256 "bef65904f03124d1950e83d600883dab3a450e0bcf7455a3533c9a8c83b50326" # linux_amd64
       os = "linux"
       on_arm do
         arch = "arm64"
-        sha256 "933de75dc3e3b1ab7910172a6e03be9f38f24c6aa0a45e585dfe14de7a7a2ae6" # linux_arm64
+        sha256 "abdb022f6a94a2826cb3d61e63bc30349f9700cdb7b25dd9136e26e4080ff226" # linux_arm64
       end
     end
     url "https://cdn.rob.mx/tools/joao/#{version}/joao-#{os}-#{arch}.tgz"
-    # https://cdn.rob.mx/tools/joao/VERSION/joao-OS-ARCH.tgz # shasum-url
+    # https://cdn.rob.mx/tools/joao/VERSION/joao-OS-ARCH.tgz.shasum # shasum-url
   end
 
   livecheck do

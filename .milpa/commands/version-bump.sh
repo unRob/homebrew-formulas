@@ -9,15 +9,19 @@ awk -v version="\"$latest\"" -v pattern="\".+\"" '/^  version "/ {gsub(pattern, 
 
 shasum_url_tpl="$(awk -F'#' -v version="$latest" '/# shasum-url$/ {
   gsub("VERSION", version, $2);
+  gsub(/ */, "", $2);
   print $2
-}' "$MILPA_ARG_FORMULA").shasum"
+}' "$MILPA_ARG_FORMULA")"
 
 while read -r os arch; do
   @milpa.log info "looking for pair $os $arch"
   shasum_url="${shasum_url_tpl/OS/$os}"
-  shasum_url="${shasum_url_tpl/ARCH/$arch}"
+  shasum_url="${shasum_url/ARCH/$arch}"
 
-  sum="$(curl --silent -L "$shasum_url")" || continue
+  if ! sum="$(curl --silent --fail --show-error -L "$shasum_url")"; then
+    @milpa.log warning "Could not find checksum for $shasum_url"
+    continue
+  fi
   awk -v sum="\"$sum\"" -v pattern="\".+\"" '/ # '"${os}_${arch}"'$/ {gsub(pattern, sum, $0)}1' "$MILPA_ARG_FORMULA.updated" > "$MILPA_ARG_FORMULA.updated-bak" &&  mv "$MILPA_ARG_FORMULA.updated-bak" "$MILPA_ARG_FORMULA.updated"
 done < <(cat <<PAIRS
 darwin amd64
