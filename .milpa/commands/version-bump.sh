@@ -31,7 +31,7 @@ while read -r os arch; do
 
   sum="$(curl --silent --fail --show-error -L "$shasum_url")" || @milpa.fail "Could not find checksum for $shasum_url"
 
-  @milpa.log info "found checksum $shasum_url for pair $os/$arch"
+  @milpa.log info "found checksum $sum for pair $os/$arch"
   awk -v sum="\"$sum\"" -v pattern="\".+\"" '/ # '"${os}_${arch}"'$/ {gsub(pattern, sum, $0)}1' "$MILPA_ARG_FORMULA.updated" > "$MILPA_ARG_FORMULA.updated-bak" &&  mv "$MILPA_ARG_FORMULA.updated-bak" "$MILPA_ARG_FORMULA.updated"
 done < <(awk '/ # (darwin|linux)_(arm64|amd64|mips|mips64)$/ {gsub("_", " ", $NF);print $NF}' "$MILPA_ARG_FORMULA")
 
@@ -40,10 +40,10 @@ mv "$MILPA_ARG_FORMULA.updated" "$MILPA_ARG_FORMULA" || @milpa.fail "could not s
 diff -u -Loriginal "$original" "$MILPA_ARG_FORMULA" > "$changes"
 ec="$?"
 case "$ec" in
-  03)
+  0)
     @milpa.fail "no changes found for $MILPA_ARG_FORMULA after updating to $latest"
     ;;
-  1|0)
+  1)
     if ! [[ "$MILPA_OPT_UPDATE_REPO" ]]; then
       @milpa.log complete "Formula for $name updated to $latest"
       cat "$changes"

@@ -24,7 +24,7 @@ jobs:
           git config user.name formulas-release-workflow
           git config user.email formula-release-workflow@un.rob.mx
           curl -L https://milpa.dev/install.sh | bash -
-          milpa version-bump "$FORMULA" "$VERSION"
+          milpa version-bump --update-repo "$FORMULA" "$VERSION"
         env:
           FORMULA: ${{ inputs.formula }}
           VERSION: ${{ inputs.version }}
