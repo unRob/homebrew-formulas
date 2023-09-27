@@ -1,0 +1,4 @@
+_config: !!joao
+  vault: nidito-admin
+  name: github.com:homebrew-formulas
+pat: !!secret
