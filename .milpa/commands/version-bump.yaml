@@ -7,3 +7,10 @@ arguments:
     required: true
     values:
       files: [".rb"]
+  - name: version
+    description: The version number to update to, omit to pull from well-known url
+    default: "latest"
+options:
+  update-repo:
+    description: commit and push changes
+    type: bool
