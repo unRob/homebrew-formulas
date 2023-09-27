@@ -52,6 +52,10 @@ class Milpa < Formula
     # link it to the installation prefix
     ln_s global_repos, prefix
 
+    # user repos dir can't be created with homebrew because $HOME is off limits
+    user_repos = share / "milpa" / "repos"
+    user_repos.mkpath
+
     prefix.install "milpa"
     prefix.install "compa"
     prefix.install ".milpa"
@@ -62,12 +66,28 @@ class Milpa < Formula
     bin.install_symlink prefix/"milpa"
     bin.install_symlink prefix/"compa"
 
-    with_env(MILPA_ROOT: prefix) do
+    with_env(MILPA_ROOT: prefix, XDG_DATA_HOME: share) do
       generate_completions_from_executable(bin/"compa", "__generate_completions", base_name: "milpa")
     end
   end
 
+  def caveats
+    header = <<~EOF
+      You should create ~/.local/share/milpa/repos if it doesn't already exist.
+      Homebrew does not allow packages to write anything to $HOME:
+
+        mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/milpa/repos"
+
+      milpa works best when shell completions are enabled, follow along
+      Homebrew's instructions for your shell:
+
+        https://docs.brew.sh/Shell-Completion
+    EOF
+  end
+
   test do
+    ENV["XDG_DATA_HOME"] = share
+
     system "#{bin}/milpa" "--version"
   end
 end

@@ -1,0 +1,19 @@
+name: version-bump
+on:
+  workflow_dispatch:
+    inputs:
+      formula:
+        description: 'Formula to update'
+        required: true
+        type: string
+
+jobs:
+  update-formula:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install milpa
+        run: |
+          curl -L https://milpa.dev/install.sh | bash -
+          milpa version-bump "$FORMULA"
+        env:
+          FORMULA: ${{ inputs.formula }}
