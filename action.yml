@@ -1,21 +1,22 @@
 name: 'Bump unRob/formulas formula'
 description: 'bumps the version and shasums for a unRob/homebrew-formulas formula'
 inputs:
-  token:
-    description: 'a personal access token to trigger the remote repo workflow with'
-    required: true
   formula:
     description: 'the name of the formula to bump'
     required: true
   version:
     description: 'the version to bump the formula to'
     default: 'latest'
+secrets:
+  token:
+    description: 'a personal access token to trigger the remote repo workflow with'
+    required: true
 runs:
   using: "composite"
   steps:
     - name: Trigger version bump
       env:
-        GITHUB_TOKEN: ${{ inputs.token }}
+        GITHUB_TOKEN: ${{ secrets.token }}
         VERSION: ${{ inputs.version }}
         FORMULA: ${{ inputs.formula }}
       run: |
