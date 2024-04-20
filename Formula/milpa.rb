@@ -1,24 +1,24 @@
 class Milpa < Formula
   desc "Tool to care for one's own garden of scripts"
   homepage "https://milpa.dev"
-  version "0.0.0-beta.4"
+  version "0.0.0-beta.5"
   license "Apache-2.0"
   stable do
     os = "darwin"
     arch = "amd64"
     on_macos do
-      sha256 "83d868e1c65c2f4c2fc9e5dcf089e4a2812985c790edae643365b60cc664a6f2" # darwin_amd64
+      sha256 "87b601299da433deadd83720457e27a8699dc1044dd8ce34c58bdb8c52e8e84c" # darwin_amd64
       on_arm do
         arch = "arm64"
-        sha256 "4c9dc0584b207e746dd1046b8044f70a32caddfc0e191fc631638003fee4b5f0" # darwin_arm64
+        sha256 "11eb4a7240832f5d9593d4f106caa4c0d62eb170a5034efd4ee0e14a8b9d8fc9" # darwin_arm64
       end
     end
     on_linux do
-      sha256 "37baa0fb6e99c2e63a27ee238673482b686098cb9be4535c8906218be73f495e" # linux_amd64
+      sha256 "b11c69a3bf867b4e3ccc747b8ed53955dff8a2411405ffa9875b955297969800" # linux_amd64
       os = "linux"
       on_arm do
         arch = "arm64"
-        sha256 "07922150be2877c6a4cb0b27d6a6c9be41462f42c60d75a9513bdf4338c354a7" # linux_arm64
+        sha256 "b96da3de9bba47fcf59c220c4dd52b3f3cc1ecca1e60f39da6ae80eb9ab68d18" # linux_arm64
       end
     end
     url "https://github.com/unRob/milpa/releases/download/#{version}/milpa-#{os}-#{arch}.tgz"
